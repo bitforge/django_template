@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from app import models
+from {{ project_name }} import models
 
 # Django Admin docs:
-# https://docs.djangoproject.com/en/3.2/ref/contrib/admin/
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/contrib/admin/
 
 
 @admin.register(models.User)

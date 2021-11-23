@@ -1,11 +1,24 @@
-New Django App
-==============
+{{ project_name }}
+==================
 
 Bitforge Template für neues Django Projekt.
 
+## Template verwenden
+
+Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
+
+    git clone git@github.com:bitforge/django_bf_template.git
+    django-admin startproject \
+        --template django_bf_template \
+        --extension py,md \
+        project_name
+
+Dannach diese Sektion des READMES entfernen :)
+
+
 ### Setup einmalig
 
-Postgres.app unter MacOS installieren: https://postgresapp.com/
+[Postgres.app](https://postgresapp.com) unter MacOS installieren.
 
 Requirements installieren:
 
@@ -18,18 +31,18 @@ Requirements installieren:
 
 DB einrichten und Admin User erstellen:
 
+    ln -sf envs/local.env .env
+    psql -c "create database {{ project_name }}"
     ./manage.py migrate
     ./manage.py createsuperuser
 
 
 ### Konfiguration
 
-Alle Config Optionen sollten per Environement Variable definiert werden.
-Im Ordner `envs` können verschiedene Umgebungen konfiguriert werden werden.
+Alle variablen Optionen werden gemäss [12factor](https://12factor.net/config) in der Environment definiert.
+Im Ordner `envs` können lokal verschiedene Umgebungen erstellt werden werden.
 Es gibt jeweils eine aktive Umgebung, die mit dem `.env` Symlink gesetzt wird.
-Nach dem auschecken des Repo sollte die lokale PostgreSQL env aktiviert werden:
-
-    ln -sf envs/local.env .env
+Nach dem auschecken des Repo sollte die lokale PostgreSQL env aktiviert werden.
 
 
 ### Übersetzungen aktualisieren und kompilieren
@@ -43,5 +56,5 @@ Nach dem auschecken des Repo sollte die lokale PostgreSQL env aktiviert werden:
 Development Server starten
 
     source .venv/bin/activate
-    ./manage.py runserver 0.0.0.0:8000
+    ./manage.py runserver
 

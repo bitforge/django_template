@@ -12,7 +12,7 @@ sys.path.insert(0, SRC_DIR)
 
 def main():
     tic = time.perf_counter()
-    from app.asgi import application
+    from {{ project_name }}.asgi import application
     toc = time.perf_counter()
     print(f"Startup time: {toc - tic:0.4f}s")
     print('Running at http://0.0.0.0:8080/')

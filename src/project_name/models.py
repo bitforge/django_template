@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
-from app import managers
+from {{ project_name }} import managers
 
 
 class User(AbstractUser):

@@ -273,7 +273,7 @@ tags
 .pytest_cache/
 .ipython/
 
-# DOTenv files
+# env files
 .env
 .envs/*
 !.envs/.local/

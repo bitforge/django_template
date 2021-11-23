@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from api import serializers
 
-from app import models
+from {{ project_name }} import models
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -18,7 +18,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
     def list(self, request, *args, **kwargs):
-        """ Lists all users that are members in the same projects. """
+        """ Lists all users. """
         return super().list(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):

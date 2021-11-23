@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app import models
+from {{ project_name }} import models
 
 
 class HealthStatusSerializer(serializers.Serializer):

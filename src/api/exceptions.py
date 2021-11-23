@@ -17,7 +17,7 @@ def exception_handler(exc, context):
     Inspired by drf-problems:
     https://github.com/shivanshs9/drf-problems/
 
-    Adapted here for explicability and customizablity
+    Adapted here for explicity and customizablity
     Especially error reports to sentry.io
     """
     # Convert Django exceptions (from DRF).

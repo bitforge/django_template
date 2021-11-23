@@ -5,7 +5,7 @@ from django.core import checks
 
 class MainAppConfig(AppConfig):
     default = True
-    name = 'app'
+    name = '{{ project_name }}'
 
 
 @checks.register
@@ -20,7 +20,7 @@ def check_db_env(app_configs, **kwargs):
             checks.Warning(
                 "DB is not local, you are probably using a Google Cloud env!",
                 hint="Switch to local env with command: ln -sf envs/local.env .env",
-                id="app.W001",
+                id="{{ project_name }}.W001",
             )
         )
     return warnings
