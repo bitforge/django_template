@@ -1,13 +1,11 @@
 from django.apps import AppConfig
 from django.conf import settings
 from django.core import checks
-from django.utils.translation import gettext_lazy as _
 
 
 class MainAppConfig(AppConfig):
     default = True
     name = 'app'
-    verbose_name = _('New App Name')
 
 
 @checks.register

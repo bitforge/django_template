@@ -4,8 +4,10 @@ from django.utils.translation import gettext_lazy as _
 
 from app import models
 
+# Django Admin docs:
+# https://docs.djangoproject.com/en/3.2/ref/contrib/admin/
 
-# Register genie model admins
+
 @admin.register(models.User)
 class UserAdmin(AuthUserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
