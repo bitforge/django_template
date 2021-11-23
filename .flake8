@@ -1,0 +1,10 @@
+[flake8]
+ignore = D203, E128, E241
+exclude =
+    # Skip venv, git and lib directories
+    .venv, .git, lib,
+    # There's no value in checking cache directories
+    __pycache__,
+    # Django migrations are generated code
+    migrations
+max-line-length = 120

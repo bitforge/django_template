@@ -1,0 +1,6 @@
+.*
+!.coveragerc
+!.env
+!.pylintrc
+!.venv
+__pycache__
