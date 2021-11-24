@@ -33,6 +33,7 @@ env = environ.Env(
     STORE_CDN_HOST=(str, None),
     EMAIL_HOST_USER=(str, 'no-reply@bitforge.ch'),
     EMAIL_HOST_PASSWORD=(str, None),
+    PASSWORD_RESET_URL=(str, None),
     SENTRY_DSN=(str, None),
     MAINTENANCE_MODE=(bool, False),
 )
@@ -174,7 +175,9 @@ if env('EMAIL_HOST_USER') and env('EMAIL_HOST_PASSWORD'):
 elif DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-DEFAULT_FROM_EMAIL = 'no-reply@bitforge.ch'
+DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
+PASSWORD_RESET_URL = env('PASSWORD_RESET_URL')
+
 
 # Login url when password reset by mail is completed
 LOGIN_URL = '/admin/login/'
