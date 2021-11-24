@@ -1,9 +1,22 @@
 {{ project_name }}
 ==================
 
-Bitforge Template für neues Django Projekt.
+Bitforge Template für neue Django Projekte.
 
-## Template verwenden
+Bringt einige opinionated presets und features mit:
+
+- Docker Container Buildfile
+- 12factor env Konfiguration
+- Google Cloud Run ready
+- Sentry.io Error Reporting
+- Emails only als Account Identifier
+- `django-admin-interface` als Admin Styling
+- Django REST Framework für API
+- RFC 7807 Error Messages
+- SimpleJWT für API Login
+- Passwort Reset Flow
+
+## Template stanzen
 
 Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
 
@@ -14,7 +27,6 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
         project_name
 
     cd project_name
-    ln -sf envs/local.env .env
     git init
     git commit -a -m "Initial commit"
 
