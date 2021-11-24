@@ -301,10 +301,10 @@ SIMPLE_JWT = {
 
 # Preprocessed images
 IMAGEFIELD_FORMATS = {
-    # '{{ project_name }}.model.image': {
-    #     'thumb': ['default', ('thumbnail', (120, 120))],
-    #     'preview': ['default', ('thumbnail', (300, 300))],
-    # },
+    '{{ project_name }}.entry.image': {
+        'thumb': ['default', ('thumbnail', (120, 120))],
+        'preview': ['default', ('thumbnail', (300, 300))],
+    },
 }
 
 # CORS Headers

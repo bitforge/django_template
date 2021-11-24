@@ -1,0 +1,33 @@
+.module caption {
+    font-size: 14px;
+}
+
+.module th {
+    font-size: 14px;
+}
+
+#result_list tbody th,
+#result_list tbody td,
+#result_list tbody th > a,
+#result_list tbody td > a {
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+}
+
+#result_list tbody th,
+#result_list tbody td {
+    padding: 6px;
+}
+
+.list-thumb {
+    float: left;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.form-row.field-title input {
+    font-size: 18px;
+}

@@ -3,13 +3,13 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.cache import cache
 
-from account import models as account_models
+from account import models as accounts
 
 
 def check_db():
     try:
-        return models.User.objects.exists()
-    except models.User.DoesNotExist:
+        return accounts.User.objects.exists()
+    except accounts.User.DoesNotExist:
         return False
 
 

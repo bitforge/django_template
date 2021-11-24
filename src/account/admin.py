@@ -6,8 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from account import models
 
 
-# Show Groups in account app
-auth_models.Group._meta.app_label = 'account'
 admin.site.unregister(auth_models.Group)
 
 @admin.register(auth_models.Group)

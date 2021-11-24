@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from api import serializers
 
 from account import models as accounts
-
+from api import serializers
+from {{ project_name }} import models
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = accounts.User.objects.all()
@@ -24,3 +25,8 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         """ Details of a single user. """
         return super().retrieve(request, *args, **kwargs)
+
+
+class EntryViewSet(viewsets.ModelViewSet):
+    queryset = models.Entry.objects.all()
+    serializer_class = serializers.EntrySerializer
