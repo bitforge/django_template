@@ -14,7 +14,8 @@ Bringt einige opinionated presets und features mit:
 - Django REST Framework für API
 - RFC 7807 Error Messages
 - SimpleJWT für API Login
-- Passwort Reset Flow
+- Passwort Reset Flow über API
+- `django-imagefields` inkl Admin thumbnails
 
 ## Template stanzen
 
