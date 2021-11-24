@@ -1,8 +1,22 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
+from django.contrib.auth import models as auth_models
+from django.contrib.auth.admin import UserAdmin as AuthUserAdmin, GroupAdmin as AuthGroupAdmin
 from django.utils.translation import gettext_lazy as _
 
 from account import models
+
+
+# Show Groups in account app
+auth_models.Group._meta.app_label = 'account'
+admin.site.unregister(auth_models.Group)
+
+@admin.register(auth_models.Group)
+class GroupAdmin(AuthGroupAdmin):
+    list_display = ('name', 'user_count_display')
+
+    def user_count_display(self, group):
+        return group.user_set.count()
+    user_count_display.short_description = _('# of Users')
 
 
 @admin.register(models.User)

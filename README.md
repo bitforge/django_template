@@ -10,8 +10,13 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
     git clone git@github.com:bitforge/django_bf_template.git
     django-admin startproject \
         --template django_bf_template \
-        --extension py,md \
+        --extension py,md,env \
         project_name
+
+    cd project_name
+    ln -sf envs/local.env .env
+    git init
+    git commit -a -m "Initial commit"
 
 Dannach diese Sektion des READMES entfernen :)
 
