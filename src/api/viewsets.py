@@ -4,11 +4,11 @@ from rest_framework.response import Response
 
 from api import serializers
 
-from {{ project_name }} import models
+from auth import models as auth_models
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = models.User.objects.all()
+    queryset = auth_models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
     @action(methods=['get'], detail=False)

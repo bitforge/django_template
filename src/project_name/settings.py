@@ -250,11 +250,10 @@ USE_L10N = True
 USE_TZ = False
 
 # Custom user model
-AUTH_USER_MODEL = '{{ project_name }}.user'
+AUTH_USER_MODEL = 'auth.user'
 
 # Django REST Framework Api
 REST_FRAMEWORK = {
-    'DEFAULT_CONTENT_NEGOTIATION_CLASS': 'api.negotiation.JsonAllTheThings',
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
@@ -268,6 +267,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions'
     ],
+    'DEFAULT_CONTENT_NEGOTIATION_CLASS': 'api.negotiation.JsonAllTheThings',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'EXCEPTION_HANDLER': 'api.exceptions.exception_handler',

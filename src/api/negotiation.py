@@ -2,6 +2,10 @@ from rest_framework.negotiation import BaseContentNegotiation
 
 
 class JsonAllTheThings(BaseContentNegotiation):
+    """
+    Disables content negotiation and always returns JSON parser and renderer
+    """
+
     def select_parser(self, request, parsers):
         """
         Select the first parser in the `.parser_classes` list.

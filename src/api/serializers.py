@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from {{ project_name }} import models
+from mobyz import models
 
 
 class HealthStatusSerializer(serializers.Serializer):
