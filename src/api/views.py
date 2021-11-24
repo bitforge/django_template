@@ -3,12 +3,12 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import generics
 from rest_framework.response import Response
 
-from auth import models as auth_models
+from account import models as accounts
 from api import serializers, health
 
 
 class HealthCheckView(generics.GenericAPIView):
-    queryset = auth_models.User.objects.none()
+    queryset = accounts.User.objects.none()
     serializer_class = serializers.HealthStatusSerializer
     permission_classes = []
     authentication_classes = []

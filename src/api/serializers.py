@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from mobyz import models
+from account import models as accounts
 
 
 class HealthStatusSerializer(serializers.Serializer):
@@ -12,14 +12,11 @@ class HealthStatusSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.User
+        model = accounts.User
         fields = [
             'id',
             'email',
             'first_name',
             'last_name',
             'date_joined',
-            'is_active',
-            'is_staff',
-            'is_superuser',
         ]

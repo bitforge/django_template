@@ -3,7 +3,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.cache import cache
 
-from mobyz import models
+from account import models as account_models
 
 
 def check_db():

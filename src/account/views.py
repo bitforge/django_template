@@ -3,7 +3,7 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import serializers, status
 from rest_framework_simplejwt import views
 
-from auth import serializers
+from account import serializers
 
 
 class TokenObtainPairView(views.TokenObtainPairView):

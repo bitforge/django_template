@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api',
+    'account',
     '{{ project_name }}',
     # Libraries
     'maintenance_mode',
@@ -250,7 +252,7 @@ USE_L10N = True
 USE_TZ = False
 
 # Custom user model
-AUTH_USER_MODEL = 'auth.user'
+AUTH_USER_MODEL = 'account.user'
 
 # Django REST Framework Api
 REST_FRAMEWORK = {
