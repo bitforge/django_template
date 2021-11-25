@@ -27,14 +27,26 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
         --extension py,md,env \
         project_name
 
+
+Einmaliges Projekt setup:
+
     cd project_name
+
+    ln -sf envs/local.env .env
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+
+    ./manage.py check
+    ./manage.py makemigrations
+
     git init
     git commit -a -m "Initial commit"
 
 Dannach diese Sektion des READMES entfernen :)
 
 
-### Setup einmalig
+### Local Dev Setup
 
 [Postgres.app](https://postgresapp.com) unter MacOS installieren.
 
