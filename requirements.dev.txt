@@ -1,8 +1,6 @@
 # Install these requirements in venv for development
 wheel
 flake8
-Pillow
 uvicorn
-psycopg2-binary
 google-cloud-storage
 django-debug-toolbar
