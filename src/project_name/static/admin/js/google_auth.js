@@ -38,8 +38,17 @@ async function loginWithGoogle(id_token) {
     }
 }
 
-function showErrors(errors) {
-    const errorList = document.querySelector('.gauth.errorlist');
+async function showErrors(errors) {
+    if (errors instanceof Response) {
+        try {
+            const errorResponse = await errors.json();
+            errors = [errorResponse.detail];
+        } catch (ex) {
+            errors = [`${errorResponse.status} ${errorResponse.statusText}`];
+        }
+    }
+
+    const errorList = document.querySelector('.gauth.errors');
     errorList.innerHTML = '';
     for (const error of Object.values(errors)) {
         const li = document.createElement('li');
