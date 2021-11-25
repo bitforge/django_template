@@ -32,19 +32,8 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
 PRE-COMMIT setup:
 
     cd project_name
+    ./initalize.sh
 
-    ln -sf envs/local.env .env
-    python3 -m venv .venv
-    source .venv/bin/activate
-    pip install -r requirements.txt
-
-    ./manage.py check
-    ./manage.py makemigrations
-    ./manage.py makemessages -a
-    ./manage.py compilemessages -i .venv
-
-    git init
-    git commit -a -m "Initial commit"
 
 Repo auf GitHub erstellen und `main` sowie `develop` branch pushen.
 
