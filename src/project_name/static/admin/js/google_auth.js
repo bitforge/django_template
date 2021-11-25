@@ -39,18 +39,22 @@ async function loginWithGoogle(id_token) {
 }
 
 async function showErrors(errors) {
-    if (errors instanceof Response) {
-        try {
-            const errorResponse = await errors.json();
-            errors = [errorResponse.detail];
-        } catch (ex) {
-            errors = [`${errorResponse.status} ${errorResponse.statusText}`];
-        }
+    const errorMessages = new Array();
+    if (Array.isArray(errors)) {
+        errorMessages = errors;
+    } else if (errors.detail) {
+        errorMessages.push(errors.detail);
+    } else if (errors.title) {
+        errorMessages.push(errors.title);
+    } else if (errors.status) {
+        errorMessages.push(errors.status);
+    } else {
+        errorMessages.push(errors.toString());
     }
 
     const errorList = document.querySelector('.gauth.errors');
     errorList.innerHTML = '';
-    for (const error of Object.values(errors)) {
+    for (const error of Object.values(errorMessages)) {
         const li = document.createElement('li');
         li.appendChild(document.createTextNode(error));
         errorList.appendChild(li);

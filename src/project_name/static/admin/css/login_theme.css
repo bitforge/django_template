@@ -33,3 +33,14 @@ a.google_login img {
     width: 26px;
     margin-right: 5px;
 }
+
+.gauth.errors {
+    margin-top: 16px;
+    text-align: center;
+    padding: 0;
+}
+
+.gauth.errors > li {
+    list-style-type: disc;
+    color: #990000;
+}
