@@ -18,12 +18,10 @@ ENV PYTHONUNBUFFERED 1
 COPY src/ /app/src/
 COPY manage.py /app/
 COPY startup.py /app/
-
-# Prepare django app
 WORKDIR /app/
 
 # Static files are served from container directly via whitenoise
 RUN ./manage.py collectstatic --link
 
-# Starts HTTP server
+# Start HTTP server
 CMD python3 startup.py

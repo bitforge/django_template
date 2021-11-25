@@ -5,18 +5,17 @@ Bitforge Template für neues Django Projekt.
 
 Bringt einige opinionated presets und features mit:
 
-- Docker Container Buildfile
-- 12factor env Konfiguration
-- Google Cloud Run ready
-- Google SSO Login für Admin & Api
-- Sentry.io Error Reporting
-- Email Addressen als AccountID, keine Usernames
-- `django-admin-interface` als Admin Styling
-- Django REST Framework für API
-- RFC 7807 Error Messages
-- SimpleJWT für API Login
-- Passwort Reset Flow über API
-- `django-imagefields` inkl Admin thumbnails
+- [Container build](https://docs.docker.com/engine/reference/builder/) script via `Dockerfile`
+- [12factor](https://12factor.net) Architektur
+- [Google Cloud Run](https://cloud.google.com/run) ready mit [Storage Bucket support.](https://django-storages.readthedocs.io/en/latest/backends/gcloud.html)
+- [Google SSO Login](https://developers.google.com/identity/sign-in/web) für Admin & Api / *Deprecated*
+- [Sentry.io](https://sentry.io/) Error Reporting
+- Email Addressen als *Account_ID*, keine Usernames
+- [`django-admin-interface`](https://github.com/fabiocaccamo/django-admin-interface) als Admin Styling
+- [Django REST Framework](https://www.django-rest-framework.org/) für API
+- [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807) Error Messages
+- [JSON Web Tokens (JWT)](https://jwt.io/) für API Login
+- [`django-imagefield`](https://github.com/matthiask/django-imagefield) für Image Pre-Processing
 
 ## Template stanzen
 
@@ -29,17 +28,30 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
         project_name
 
 
-PRE-COMMIT setup:
+#### MacOS Setup:
+
+Homebrew installieren: https://brew.sh/
+
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+
+#### Linux Setup:
+
+Unter Debian / Ubuntu basierten Distros:
+
+    sudo apt-get install libpq-dev
+
+
+##### Git & GitHub Repo setup:
 
     cd project_name
     ./initalize.sh
-
 
 Repo auf GitHub erstellen und `main` sowie `develop` branch pushen.
 
 Main Branch im Repo auf `develop` setzen.
 
-Dannach diese Sektion des READMES entfernen :)
+> Dannach alles in diesem README bis hierhin entfernen & eigenes Intro schreiben.
 
 
 ### Local Dev Setup
