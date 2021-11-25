@@ -62,10 +62,8 @@ Requirements installieren:
 
     python3 -m venv .venv
     source .venv/bin/activate
-    pip install -r requirements.txt
-
-    # DEV dependencies
     pip install -r requirements.dev.txt
+    pip install -r requirements.txt
 
 DB einrichten und Admin User erstellen:
 
