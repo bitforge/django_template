@@ -15,5 +15,5 @@ def favicon(request):
     """
     Quick favicon redirect.
     """
-    favicon_url = static('img/favicons/favicon-32.png')
+    favicon_url = static('icons/favicon-32.png')
     return HttpResponseRedirect(favicon_url)
