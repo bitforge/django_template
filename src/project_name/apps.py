@@ -21,7 +21,7 @@ def check_db_env(app_configs, **kwargs):
     db_name = settings.DATABASES['default']['ENGINE']
     db_host = settings.DATABASES['default']['HOST']
     is_sqlite = 'sqlite3' in db_name
-    is_local = 'localhost' in db_host
+    is_local = 'localhost' in db_host or '/var/run/postgresql' in db_host
     if settings.DEBUG and not is_sqlite and not is_local:
         warnings.append(
             checks.Warning(
