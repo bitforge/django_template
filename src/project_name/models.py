@@ -6,18 +6,15 @@ from django.utils.translation import gettext_lazy as _
 
 from imagefield.fields import ImageField
 
+from {{ project_name }}.model_utils import entry_image_upload_path
+
 # Django models doc:
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/db/models/
 
 
-def entry_upload_path(instance, filename):
-    return os.path.join('images', 'entry', instance.slug, filename)
-
-
-# Rename this class
 class Entry(models.Model):
     """
-    Template model - adapt to your project
+    Template model - adapt it to your project and write a description here
     """
 
     # Always use uuid as primary key!
@@ -27,7 +24,7 @@ class Entry(models.Model):
 
     slug = models.SlugField(_('Slug'), max_length=100)
 
-    image = ImageField(_('Image'), upload_to=entry_upload_path, blank=True, null=True,
+    image = ImageField(_('Image'), upload_to=entry_image_upload_path, blank=True, null=True,
         auto_add_fields=True, ppoi_field=False,)
 
     website = models.URLField(_('Website'), blank=True, null=True)
