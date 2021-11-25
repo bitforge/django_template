@@ -7,6 +7,10 @@ from django.contrib.auth.tokens import default_token_generator
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from google.oauth2 import id_token
+from google.auth.exceptions import GoogleAuthError
+from google.auth.transport import requests
+
 from account import models as accounts
 
 class TokenObtainRequestSerializer(serializers.Serializer):
@@ -34,6 +38,24 @@ class TokenVerifyRequestSerializer(serializers.Serializer):
 class TokenVerifyResponseSerializer(serializers.Serializer):
     pass
 
+
+class GoogleIdTokenSerializer(serializers.Serializer):
+    """
+    Verify Google ID Token and ensure email is verified
+    """
+    token = serializers.CharField()
+
+    def validate(self, attrs):
+        try:
+            client_id = getattr(settings, 'GOOGLE_OAUTH_CLIENT_ID', '')
+            google_id = id_token.verify_oauth2_token(attrs['token'], requests.Request(), client_id)
+
+            # Only accept verified email addresses
+            if not google_id.get('email_verified', False):
+                raise ValidationError({'token': ['Email not verified']})
+            return google_id
+        except (ValueError, GoogleAuthError) as err:
+            raise ValidationError({'token': [str(err)]})
 
 class PasswordResetSerializer(serializers.Serializer):
     """
