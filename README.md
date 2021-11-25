@@ -8,8 +8,9 @@ Bringt einige opinionated presets und features mit:
 - Docker Container Buildfile
 - 12factor env Konfiguration
 - Google Cloud Run ready
+- Google SSO Login für Admin & Api
 - Sentry.io Error Reporting
-- Emails only als Account Identifier
+- Email Addressen als AccountID, keine Usernames
 - `django-admin-interface` als Admin Styling
 - Django REST Framework für API
 - RFC 7807 Error Messages
