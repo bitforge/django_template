@@ -1,7 +1,7 @@
 {{ project_name }}
 ==================
 
-Bitforge Template für neue Django Projekte.
+Bitforge Template für neues Django Projekt.
 
 Bringt einige opinionated presets und features mit:
 
@@ -29,7 +29,7 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
         project_name
 
 
-Einmaliges Projekt setup:
+PRE-COMMIT setup:
 
     cd project_name
 
@@ -40,9 +40,15 @@ Einmaliges Projekt setup:
 
     ./manage.py check
     ./manage.py makemigrations
+    ./manage.py makemessages -a
+    ./manage.py compilemessages -i .venv
 
     git init
     git commit -a -m "Initial commit"
+
+Repo auf GitHub erstellen und `main` sowie `develop` branch pushen.
+
+Main Branch im Repo auf `develop` setzen.
 
 Dannach diese Sektion des READMES entfernen :)
 
