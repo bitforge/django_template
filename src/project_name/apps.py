@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from imagefield.fields import ImageField, ImageFieldFile
 
+
 class MainAppConfig(AppConfig):
     default = True
     name = '{{ project_name }}'

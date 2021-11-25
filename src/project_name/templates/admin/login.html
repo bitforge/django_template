@@ -3,7 +3,7 @@
 {% load static i18n %}
 
 {% block extrahead %}
-    <meta name="google-signin-client_id" content="{{ GOOGLE_OAUTH_CLIENT_ID }}">
+    <meta name="google-signin-client_id" content="{{ google_client_id }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/admin_login.css' %}">
 {% endblock %}
@@ -20,5 +20,5 @@
 
 {% block footer %}
     <script src="https://apis.google.com/js/api:client.js" async defer></script>
-    <script src="{% static 'js/google_auth.js' %}"></script>
+    <script src="{% static 'admin/js/google_auth.js' %}"></script>
 {% endblock %}
