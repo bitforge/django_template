@@ -72,7 +72,6 @@ class GoogleAuthView(views.TokenViewBase):
     def post(self, request, *args, **kwargs):
         """
         Takes a Google ID token and returns an access and refresh token for this API.
-        If token is valid and user does not already exist, a new Genie user will be created.
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
