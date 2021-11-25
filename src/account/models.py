@@ -21,6 +21,7 @@ class User(AbstractUser):
     objects = managers.EmailUserManager()
 
     class Meta:
+        db_table = 'auth_user'
         verbose_name = _('User')
         verbose_name_plural = _('Users')
 
