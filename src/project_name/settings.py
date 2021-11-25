@@ -27,6 +27,7 @@ env = environ.Env(
     # General settings
     SECRET_KEY=(str, None),
     DEBUG=(bool, False),
+    MAINTENANCE_MODE=(bool, False),
     DATABASE_URL=(str, None),
     GS_BUCKET_NAME=(str, None),
     GS_PROJECT_ID=(str, None),
@@ -35,7 +36,8 @@ env = environ.Env(
     EMAIL_HOST_PASSWORD=(str, None),
     PASSWORD_RESET_URL=(str, None),
     SENTRY_DSN=(str, None),
-    MAINTENANCE_MODE=(bool, False),
+    GOOGLE_OAUTH_CLIENT_ID=(str, ''),
+    GOOGLE_OAUTH_CLIENT_SECRET=(str, ''),
 )
 
 # Import settings from .env file
@@ -129,6 +131,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                '{{ project_name }}.ctx_processors.google_client_id',
             ],
         },
     },
@@ -181,6 +184,10 @@ PASSWORD_RESET_URL = env('PASSWORD_RESET_URL')
 
 # Login url when password reset by mail is completed
 LOGIN_URL = '/admin/login/'
+
+# Google Single Sign On Javascript API credentials
+GOOGLE_OAUTH_CLIENT_ID = env('GOOGLE_OAUTH_CLIENT_ID')
+GOOGLE_OAUTH_CLIENT_SECRET = env('GOOGLE_OAUTH_CLIENT_SECRET')
 
 # User media files (uploaded images, 3D models and more)
 # https://docs.djangoproject.com/en/3.1/topics/files/

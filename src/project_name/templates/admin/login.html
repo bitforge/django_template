@@ -1,0 +1,24 @@
+{% extends "admin/login.html" %}
+
+{% load static i18n %}
+
+{% block extrahead %}
+    <meta name="google-signin-client_id" content="{{ GOOGLE_OAUTH_CLIENT_ID }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_login.css' %}">
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <br />
+    <hr />
+    <a href="#" class="google_login">
+        <img src="{% static 'img/google.svg' %}" />
+        {% translate "Sign in with Google" %}
+    </a>
+{% endblock content %}
+
+{% block footer %}
+    <script src="https://apis.google.com/js/api:client.js" async defer></script>
+    <script src="{% static 'js/google_auth.js' %}"></script>
+{% endblock %}
