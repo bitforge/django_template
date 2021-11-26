@@ -33,15 +33,20 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
 
 Homebrew installieren: https://brew.sh/
 
+    # Homebrew installieren, falls noch nicht vorhanden
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+    # Python3 und Django installieren
+    brew install python@3.10
+    pip3 install django
 
 #### Linux Pre-Flight:
 
 Unter Debian / Ubuntu basierten Distros:
 
+    # LibPostgres und Django installieren
     sudo apt-get install libpq-dev
-
+    pip3 install django
 
 #### Cold-Start-Checklist (Git Repo erstellen)
 
