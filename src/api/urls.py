@@ -8,6 +8,7 @@ from api import viewsets, views
 
 router = routers.DefaultRouter()
 router.register('users', viewsets.UserViewSet, basename='user')
+router.register('entries', viewsets.EntryViewSet, basename='entries')
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/api/doc/')),
