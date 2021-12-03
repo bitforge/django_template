@@ -112,3 +112,20 @@ Development Server starten
     source .venv/bin/activate
     ./manage.py runserver
 
+
+### Special Tipp: Shell Aliases
+
+Diese Aliases für CLI Commands machen es einfacher, mit Django und Python Envs zu arbeiten.
+
+Je nach Shell sollten diese in `~/.bashrc` oder `~/.zshrc` gespeichert werden.
+
+    alias cenv='python3 -m venv .venv'
+    alias aenv='source .venv/bin/activate'
+    alias ienv='pip install -r requirements.txt'
+    alias fenv='pip freeze -r requirements.txt'
+    alias denv='deactivate'
+
+    alias dj='python manage.py'
+    alias djr='python manage.py runserver 0.0.0.0:8000'
+    alias djmsg='python manage.py makemessages -a -d django'
+    alias djmsgc='python manage.py compilemessages -i .venv'
