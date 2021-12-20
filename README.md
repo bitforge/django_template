@@ -25,7 +25,7 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
 
     django-admin startproject \
         --template django_bf_template \
-        --extension py,md,env \
+        --extension py,md,env,yml \
         project_name
 
 
@@ -74,10 +74,44 @@ Main Branch im Repo auf `develop` setzen.
 
 ### Local Dev Setup
 
+#### 1. Postgres Datenbank einrichten
+
 [Postgres.app](https://postgresapp.com) unter MacOS installieren.
+
+Unter Linux Postgres gemäss Distro einrichten. Für Debian/Ubuntu basierte Systeme:
+
+    sudo apt install postgresql
+
+#### 2. Shell Aliases einrichten
+
+Diese Aliases für CLI Commands machen es einfacher, mit Django, Python Envs und Docker zu arbeiten.
+
+Je nach Shell sollten diese in `~/.bashrc` oder `~/.zshrc` gespeichert werden.
+
+    alias cenv='python3 -m venv .venv'
+    alias aenv='source .venv/bin/activate'
+    alias ienv='pip install -r requirements.txt -r requirements.dev.txt'
+    alias fenv='pip freeze -r requirements.txt'
+    alias denv='deactivate'
+
+    alias dj='python manage.py'
+    alias djr='python manage.py runserver 0.0.0.0:8000'
+    alias djmsg='python manage.py makemessages -a -d django'
+    alias djmsgc='python manage.py compilemessages -i .venv'
+
+    alias dc='docker-compose'
+
+
+#### 3. Initial Env Setup
 
 Requirements installieren:
 
+    # Mit Aliases
+    cenv
+    aenv
+    ienv
+
+    # Ohne Aliases
     python3 -m venv .venv
     source .venv/bin/activate
     pip install -r requirements.dev.txt
@@ -87,8 +121,8 @@ DB einrichten und Admin User erstellen:
 
     ln -sf envs/local.env .env
     psql -c "create database {{ project_name }}"
-    ./manage.py migrate
-    ./manage.py createsuperuser
+    dj migrate
+    dj createsuperuser
 
 
 ### Konfiguration
@@ -97,6 +131,18 @@ Alle variablen Optionen werden gemäss [12factor](https://12factor.net/config) i
 Im Ordner `envs` können lokal verschiedene Umgebungen erstellt werden werden.
 Es gibt jeweils eine aktive Umgebung, die mit dem `.env` Symlink gesetzt wird.
 Nach dem auschecken des Repo sollte die lokale PostgreSQL env aktiviert werden.
+
+
+### Docker Compose verwenden
+
+Initiales Setup (DB einrichten)
+
+    dc run dj /app/manage.py migrate
+    dc run dj /app/manage.py createsuperuser
+
+Dannach kann die Umgebung normal gestartet werden
+
+    dc up
 
 
 ### Übersetzungen aktualisieren und kompilieren
@@ -112,20 +158,3 @@ Development Server starten
     source .venv/bin/activate
     ./manage.py runserver
 
-
-### Special Tipp: Shell Aliases
-
-Diese Aliases für CLI Commands machen es einfacher, mit Django und Python Envs zu arbeiten.
-
-Je nach Shell sollten diese in `~/.bashrc` oder `~/.zshrc` gespeichert werden.
-
-    alias cenv='python3 -m venv .venv'
-    alias aenv='source .venv/bin/activate'
-    alias ienv='pip install -r requirements.txt'
-    alias fenv='pip freeze -r requirements.txt'
-    alias denv='deactivate'
-
-    alias dj='python manage.py'
-    alias djr='python manage.py runserver 0.0.0.0:8000'
-    alias djmsg='python manage.py makemessages -a -d django'
-    alias djmsgc='python manage.py compilemessages -i .venv'
