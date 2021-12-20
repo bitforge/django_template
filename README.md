@@ -147,14 +147,14 @@ Dannach kann die Umgebung normal gestartet werden
 
 ### Übersetzungen aktualisieren und kompilieren
 
-    ./manage.py makemessages -a
-    ./manage.py compilemessages -i .venv
+    djmsg
+    djmsgc
 
 
 ### Dev server starten
 
 Development Server starten
 
-    source .venv/bin/activate
-    ./manage.py runserver
+    aenv
+    djr
 
