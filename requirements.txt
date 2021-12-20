@@ -10,7 +10,7 @@ djangorestframework==3.12.4
 djangorestframework-simplejwt==5.0.0
 drf-spectacular==0.21.0
 google-auth==2.3.3
-psycopg2==2.8.4 # Match package in alpine:3.14 and ubuntu:20.04
+psycopg2==2.8.6 # Must match package py3-psycopg2 in alpine:3.14
 PyJWT==2.1.0
 PyYAML==6.0
 requests==2.26.0
