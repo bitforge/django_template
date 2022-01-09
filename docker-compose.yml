@@ -4,33 +4,35 @@ services:
     db:
         image: postgres
         volumes:
-            - {{ project_name }}_db:/var/lib/postgresql/data
+            - db_data:/var/lib/postgresql/data
         environment:
             POSTGRES_DB: {{ project_name }}
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: dbpw
+    mc:
+        image: memcached
     dj:
         build: .
-        image: {{ project_name }}_dev
-        volumes:
-            - {{ project_name }}_media:/app/media
         depends_on:
             - db
+            - mc
+        volumes:
+            - media:/app/media
         environment:
-            DEBUG: 1
+            DEBUG: 0
+            MAINTENANCE_MODE: 0
+            CACHE_URL: pymemcache://mc:11211
             DATABASE_URL: psql://postgres:dbpw@db:5432/{{ project_name }}
-    lb:
-        image: nginx
+    ws:
+        build: nginx
         ports:
             - 0.0.0.0:8080:8080
-        volumes:
-            - ./nginx/:/etc/nginx/conf.d/
-            - {{ project_name }}_media:/srv/media
         depends_on:
             - dj
-        environment:
-          - NGINX_ENTRYPOINT_QUIET_LOGS=1
+        volumes:
+            - ./nginx/:/etc/nginx/conf.d/
+            - media:/usr/share/nginx/media
 
 volumes:
-    {{ project_name }}_db:
-    {{ project_name }}_media:
+    db_data:
+    media:
