@@ -2,7 +2,11 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 
 from rest_framework import routers
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 from api import viewsets, views
 

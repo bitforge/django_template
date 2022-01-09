@@ -13,6 +13,7 @@ from google.auth.transport import requests
 
 from account import models as accounts
 
+
 class TokenObtainRequestSerializer(serializers.Serializer):
     email = serializers.CharField()
     password = serializers.CharField()
@@ -43,12 +44,15 @@ class GoogleIdTokenSerializer(serializers.Serializer):
     """
     Verify Google ID Token and ensure email is verified
     """
+
     token = serializers.CharField()
 
     def validate(self, attrs):
         try:
             client_id = getattr(settings, 'GOOGLE_OAUTH_CLIENT_ID', '')
-            google_id = id_token.verify_oauth2_token(attrs['token'], requests.Request(), client_id)
+            google_id = id_token.verify_oauth2_token(
+                attrs['token'], requests.Request(), client_id
+            )
 
             # Only accept verified email addresses
             if not google_id.get('email_verified', False):
@@ -57,10 +61,12 @@ class GoogleIdTokenSerializer(serializers.Serializer):
         except (ValueError, GoogleAuthError) as err:
             raise ValidationError({'token': [str(err)]})
 
+
 class PasswordResetSerializer(serializers.Serializer):
     """
     Serializer for requesting a password reset e-mail.
     """
+
     email = serializers.EmailField()
     reset_form = None
 
@@ -86,7 +92,7 @@ class PasswordResetSerializer(serializers.Serializer):
             'email_template_name': 'mails/password_reset.txt',
             'extra_email_context': {
                 'reset_url': getattr(settings, 'PASSWORD_RESET_URL')
-            }
+            },
         }
 
         opts.update(self.get_email_options())
@@ -97,6 +103,7 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     """
     Serializer for confirming a password reset attempt.
     """
+
     new_password1 = serializers.CharField(max_length=128)
     new_password2 = serializers.CharField(max_length=128)
     uid = serializers.CharField()

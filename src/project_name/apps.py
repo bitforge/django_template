@@ -36,7 +36,9 @@ def check_db_env(app_configs, **kwargs):
 # ImageField customizations
 def monkey_patch_imagefield():
     def check_size_only(self, **kwargs):
-        """ Suppress ImageField without ppoi warnings - check size only """
+        """
+        Suppress ImageField without ppoi warnings - check size only
+        """
         errors = super(ImageField, self).check(**kwargs)
         if not self.width_field or not self.height_field:
             errors.append(

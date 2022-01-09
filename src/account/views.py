@@ -14,17 +14,20 @@ from account import models as accounts
 from account import serializers
 from api.serializers import ErrorDescriptionSerializer
 
+
 class TokenObtainPairView(views.TokenObtainPairView):
     """
     Takes a set of user credentials and returns an access and refresh JSON web
     token pair to prove the authentication of those credentials.
     """
+
     @extend_schema(
         request=serializers.TokenObtainRequestSerializer,
         responses={
             status.HTTP_200_OK: serializers.TokenObtainResponseSerializer,
-            status.HTTP_401_UNAUTHORIZED: None
-        })
+            status.HTTP_401_UNAUTHORIZED: None,
+        },
+    )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
@@ -34,12 +37,14 @@ class TokenRefreshView(views.TokenRefreshView):
     Takes a refresh type JSON web token and returns an access type JSON web
     token if the refresh token is valid.
     """
+
     @extend_schema(
         request=serializers.TokenRefreshRequestSerializer,
         responses={
             status.HTTP_200_OK: serializers.TokenRefreshResponseSerializer,
-            status.HTTP_400_BAD_REQUEST: ErrorDescriptionSerializer
-        })
+            status.HTTP_400_BAD_REQUEST: ErrorDescriptionSerializer,
+        },
+    )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
@@ -49,12 +54,14 @@ class TokenVerifyView(views.TokenVerifyView):
     Takes a refresh type JSON web token and returns an access type JSON web
     token if the refresh token is valid.
     """
+
     @extend_schema(
         request=serializers.TokenVerifyRequestSerializer,
         responses={
             status.HTTP_200_OK: None,
-            status.HTTP_400_BAD_REQUEST: ErrorDescriptionSerializer
-        })
+            status.HTTP_400_BAD_REQUEST: ErrorDescriptionSerializer,
+        },
+    )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
@@ -68,7 +75,8 @@ class GoogleAuthView(views.TokenViewBase):
             status.HTTP_200_OK: serializers.TokenObtainResponseSerializer,
             status.HTTP_400_BAD_REQUEST: ErrorDescriptionSerializer,
             status.HTTP_401_UNAUTHORIZED: ErrorDescriptionSerializer,
-        })
+        },
+    )
     def post(self, request, *args, **kwargs):
         """
         Takes a Google ID token and returns an access and refresh token for this API.
@@ -82,10 +90,10 @@ class GoogleAuthView(views.TokenViewBase):
         auth_login(self.request, user)
         token = RefreshToken.for_user(user)
 
-        return Response({
-            'refresh': str(token),
-            'access': str(token.access_token)
-        }, status=status.HTTP_200_OK)
+        return Response(
+            {'refresh': str(token), 'access': str(token.access_token)},
+            status=status.HTTP_200_OK,
+        )
 
     def get_user(self, google_id):
         """
@@ -103,6 +111,7 @@ class PasswordResetView(generics.GenericAPIView):
     """
     Request password reset. Send an email to the user first.
     """
+
     serializer_class = serializers.PasswordResetSerializer
     permission_classes = []
     authentication_classes = []
@@ -111,15 +120,14 @@ class PasswordResetView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({
-            'detail': _('Password reset e-mail has been sent.')
-        })
+        return Response({'detail': _('Password reset e-mail has been sent.')})
 
 
 class PasswordResetConfirmView(generics.GenericAPIView):
     """
     Password reset e-mail link is confirmed, reset the user's password.
     """
+
     serializer_class = serializers.PasswordResetConfirmSerializer
     permission_classes = []
     authentication_classes = []
@@ -131,6 +139,4 @@ class PasswordResetConfirmView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({
-            'detail': _('Password has been reset with the new password.')
-        })
+        return Response({'detail': _('Password has been reset with the new password.')})

@@ -6,6 +6,7 @@ def thumbnail_field(image_name: str, field_name: str) -> str:
     """
     Combines a field with a thumbnail image
     """
+
     def thumbnail(instance):
         try:
             display_name = str(getattr(instance, field_name, None))

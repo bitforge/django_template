@@ -43,9 +43,11 @@ def exception_handler(exc, context):
         data['title'] = problem_title
         data['status'] = problem_status
     else:
-        data = {"errors": response.data,
-                "title": problem_title,
-                "status": problem_status}
+        data = {
+            "errors": response.data,
+            "title": problem_title,
+            "status": problem_status,
+        }
     try:
         if request.accepted_renderer.format == 'json':
             response.content_type = 'application/problem+json'

@@ -92,7 +92,8 @@ MIDDLEWARE = [
 ]
 
 try:
-    import debug_toolbar # noqa
+    import debug_toolbar  # noqa
+
     INSTALLED_APPS.append('debug_toolbar')
     MIDDLEWARE.insert(2, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 except ImportError:
@@ -131,9 +132,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+            ]
         },
-    },
+    }
 ]
 
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
@@ -230,7 +231,9 @@ WHITENOISE_AUTOREFRESH = True
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
+    },
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
@@ -242,18 +245,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # FR and IT are required for language switching, but are not translated
 
 LANGUAGE_CODE = 'en'
-LANGUAGES = [
-    ('en', 'English'),
-    ('de', 'German'),
-    ('fr', 'French'),
-    ('it', 'Italian'),
-]
+LANGUAGES = [('en', 'English'), ('de', 'German'), ('fr', 'French'), ('it', 'Italian')]
 
 LANGUAGE_COOKIE_NAME = 'language'
 
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'src/{{ project_name }}/locale'),
-)
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'src/{{ project_name }}/locale'),)
 
 TIME_ZONE = 'Europe/Zurich'
 USE_I18N = True
@@ -265,19 +261,13 @@ AUTH_USER_MODEL = 'account.user'
 
 # Django REST Framework Api
 REST_FRAMEWORK = {
-    'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',
-    ],
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-    ],
+    'DEFAULT_PARSER_CLASSES': ['rest_framework.parsers.JSONParser'],
+    'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer'],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissions'
-    ],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissions'],
     'DEFAULT_CONTENT_NEGOTIATION_CLASS': 'api.negotiation.JsonAllTheThings',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
@@ -290,10 +280,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Have a nice day!',
     'VERSION': '1.0.0',
     'TOS': 'https://bitforge.ch/agb/',
-    'CONTACT': {
-        'name': 'Team at Bitforge AG',
-        'email': 'info@bitforge.ch',
-    },
+    'CONTACT': {'name': 'Team at Bitforge AG', 'email': 'info@bitforge.ch'},
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
@@ -310,19 +297,12 @@ IMAGEFIELD_FORMATS = {
     '{{ project_name }}.entry.image': {
         'thumb': ['default', ('thumbnail', (120, 120))],
         'preview': ['default', ('thumbnail', (300, 300))],
-    },
+    }
 }
 
 # CORS Headers
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-]
+CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
@@ -347,5 +327,5 @@ if env('SENTRY_DSN'):
         dsn=env('SENTRY_DSN'),
         integrations=[DjangoIntegration()],
         traces_sample_rate=0.1,
-        send_default_pii=True
+        send_default_pii=True,
     )

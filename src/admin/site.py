@@ -4,7 +4,6 @@ from django.views.decorators.cache import never_cache
 
 
 class AdminSite(admin.AdminSite):
-
     def __init__(self, name='admin'):
         self.site_url = None
         self.final_catch_all_view = False
@@ -16,7 +15,6 @@ class AdminSite(admin.AdminSite):
             extra_context = {}
         extra_context['google_client_id'] = settings.GOOGLE_OAUTH_CLIENT_ID
         return super().login(request, extra_context)
-
 
     def get_app_list(self, request):
         """

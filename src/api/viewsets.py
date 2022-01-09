@@ -28,5 +28,9 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class EntryViewSet(viewsets.ModelViewSet):
+    """
+    Demo Entry Viewset. Adapt it to your project
+    """
+
     queryset = models.Entry.objects.all()
     serializer_class = serializers.EntrySerializer

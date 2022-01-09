@@ -20,8 +20,7 @@ class HealthCheckView(generics.GenericAPIView):
         checks = {
             'db_up': health.check_db(),
             'storage_up': health.check_storage(),
-            'cache_up': health.check_cache()
+            'cache_up': health.check_cache(),
         }
         status_code = 200 if all(checks.values()) else 503
         return Response(checks, status=status_code)
-
