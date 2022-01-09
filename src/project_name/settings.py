@@ -29,6 +29,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     MAINTENANCE_MODE=(bool, False),
     DATABASE_URL=(str, None),
+    CACHE_URL=(str, 'locmemcache://'),
     GS_BUCKET_NAME=(str, None),
     GS_PROJECT_ID=(str, None),
     STORE_CDN_HOST=(str, None),
@@ -93,7 +94,6 @@ MIDDLEWARE = [
 
 try:
     import debug_toolbar  # noqa
-
     INSTALLED_APPS.append('debug_toolbar')
     MIDDLEWARE.insert(2, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 except ImportError:
@@ -115,12 +115,13 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Starting point for all mapped urls
 ROOT_URLCONF = '{{ project_name }}.urls'
 
-# Max request body size for file uploads over api: 30MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = 30 * 1024 * 1024
+# Disables all urls during maintenance work.
+# Returns HTTP 503: Service unavailable on all requests when activated.
+# https://github.com/fabiocaccamo/django-maintenance-mode
+MAINTENANCE_MODE = env('MAINTENANCE_MODE')
 
-# Use cache for session with writethrough to db
-SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
-
+# Template engine config
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/templates/#configuration
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -139,12 +140,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
-# Maintenance mode
-# Disables the whole backend during maintenance work.
-# Returns HTTP 503: Service unavailable on all requests when activated.
-# https://github.com/fabiocaccamo/django-maintenance-mode
-MAINTENANCE_MODE = env('MAINTENANCE_MODE')
-
+# Cache Config
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/cache/
+CACHES = {
+    'default': env.cache()
+}
 
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
@@ -165,6 +165,9 @@ if env('DATABASE_URL') and 'test' not in sys.argv:
 
 # Avoid unnecessary migrations to BigAutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Use cache for session with writethrough to db
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 # Mail settings
 # https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-EMAIL_HOST
@@ -229,7 +232,6 @@ WHITENOISE_AUTOREFRESH = True
 
 # Password validation
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
@@ -241,11 +243,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
-
-# FR and IT are required for language switching, but are not translated
-
 LANGUAGE_CODE = 'en'
-LANGUAGES = [('en', 'English'), ('de', 'German'), ('fr', 'French'), ('it', 'Italian')]
+LANGUAGES = [
+    ('en', 'English'),
+    ('de', 'German'),
+    ('fr', 'French'),
+    ('it', 'Italian')
+]
 
 LANGUAGE_COOKIE_NAME = 'language'
 
