@@ -21,10 +21,10 @@ Bringt einige opinionated presets und features mit:
 
 Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
 
-    git clone git@github.com:bitforge/django_bf_template.git
+    git clone git@github.com:bitforge/django_template.git
 
     django-admin startproject \
-        --template django_bf_template \
+        --template django_template \
         --extension py,md,env,yml \
         project_name
 
