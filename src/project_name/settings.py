@@ -146,6 +146,9 @@ CACHES = {
     'default': env.cache()
 }
 
+# Use cached sessions with writethrough to db
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
 
@@ -162,12 +165,6 @@ DATABASES = {
 # psql://<USER>:<PW>@//<SOCKET_PATH>/<DB_NAME>
 if env('DATABASE_URL') and 'test' not in sys.argv:
     DATABASES = {'default': env.db_url('DATABASE_URL')}
-
-# Avoid unnecessary migrations to BigAutoFields
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
-# Use cache for session with writethrough to db
-SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 # Mail settings
 # https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-EMAIL_HOST
@@ -255,10 +252,13 @@ LANGUAGE_COOKIE_NAME = 'language'
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'src/{{ project_name }}/locale'),)
 
-TIME_ZONE = 'Europe/Zurich'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+# Default time zone (UTC +01:00, UTC DST +02:00)
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/timezones/
+TIME_ZONE = 'Europe/Zurich'
 
 # Custom user model
 AUTH_USER_MODEL = 'account.user'

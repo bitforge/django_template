@@ -1,5 +1,5 @@
 from django.contrib.auth import login as auth_login
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers, generics, status
 from rest_framework.exceptions import ValidationError, AuthenticationFailed

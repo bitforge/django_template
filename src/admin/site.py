@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 
 
@@ -9,7 +10,7 @@ class AdminSite(admin.AdminSite):
         self.final_catch_all_view = False
         super().__init__(name=name)
 
-    @never_cache
+    @method_decorator(never_cache)
     def login(self, request, extra_context=None):
         if not extra_context:
             extra_context = {}
