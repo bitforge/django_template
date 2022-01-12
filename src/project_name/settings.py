@@ -331,8 +331,15 @@ IMAGEFIELD_FORMATS = {
 }
 
 # CORS Headers
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS'
+]
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
