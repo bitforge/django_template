@@ -60,16 +60,28 @@ SECURE_COOKIES = DEBUG is False
 CSRF_COOKIE_SECURE = SECURE_COOKIES
 SESSION_COOKIE_SECURE = SECURE_COOKIES
 
-# REMINDER: Limiting allowed hosts increases security!
-ALLOWED_HOSTS = ['*']
-INTERNAL_IPS = ['127.0.0.1']
+INTERNAL_IPS = ['[::1]', '127.0.0.1']
+
+# List of host/domain names to serve.
+# This is a security measure to prevent HTTP Host header attacks.
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#std:setting-ALLOWED_HOSTS
+ALLOWED_HOSTS = [
+    '[::1]',
+    '127.0.0.1',
+    '.localhost',
+    '.bitforge.ch',
+    '.bitforge.zuerich',
+    # Add app domain here: '.domain.ch',
+]
 
 # Required to work nicely behind proxies
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#csrf-trusted-origins
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://localhost:8080',
+    'https://*.bitforge.ch',
     'https://*.bitforge.zuerich',
-    # Add your app domain here: 'https://*.domain.ch',
+    # Add app domain here: 'https://*.domain.ch',
 ]
 
 # Application definition
