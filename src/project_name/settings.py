@@ -102,28 +102,12 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # CORS Headers
 # https://github.com/adamchainz/django-cors-headers
+from corsheaders.defaults import default_methods
+from corsheaders.defaults import default_headers
+
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-]
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'accept-language',
-    'authorization',
-    'content-type',
-    'content-disposition',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
+CORS_ALLOW_METHODS = default_methods
+CORS_ALLOW_HEADERS = default_headers + ['content-disposition']
 
 # Application definition
 INSTALLED_APPS = [
