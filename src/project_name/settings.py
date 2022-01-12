@@ -52,14 +52,6 @@ DEBUG = env('DEBUG')
 if 'test' in sys.argv:
     DEBUG = True
 
-# Enable secure cookies in production by default
-# This requires valid SSL termination of some sort.
-# Usually provided by frontend load balancer (NGINX or Cloud Provider).
-# https://docs.djangoproject.com/en/{{ docs_version }}/topics/security/#ssl-https
-SECURE_COOKIES = DEBUG is False
-CSRF_COOKIE_SECURE = SECURE_COOKIES
-SESSION_COOKIE_SECURE = SECURE_COOKIES
-
 INTERNAL_IPS = ['[::1]', '127.0.0.1']
 
 # List of host/domain names to serve.
@@ -82,6 +74,55 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.bitforge.ch',
     'https://*.bitforge.zuerich',
     # Add app domain here: 'https://*.domain.ch',
+]
+
+# Enable secure cookies in production by default
+# This requires valid SSL termination of some sort.
+# Usually provided by frontend load balancer (NGINX or Cloud Provider).
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/security/#ssl-https
+SECURE_COOKIES = DEBUG is False
+CSRF_COOKIE_SECURE = SECURE_COOKIES
+SESSION_COOKIE_SECURE = SECURE_COOKIES
+
+# Set HTTP Strict Transport Policy Header when using https://
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Support https:// protocol when building absolute urls behind a proxy.
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow iframe embedding for related model admin (django-admin-interface feature)
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# Required for Google Sign-In for Websites via Javascript
+# Deprecation Memo: https://developers.googleblog.com/2021/08/gsi-jsweb-deprecation.html
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+# CORS Headers
+# https://github.com/adamchainz/django-cors-headers
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS'
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'accept-language',
+    'authorization',
+    'content-type',
+    'content-disposition',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 # Application definition
@@ -127,23 +168,6 @@ try:
     MIDDLEWARE.insert(2, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 except ImportError:
     pass
-
-
-# Set HTTP Strict Transport Policy Header when using https://
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-
-# Support https:// proctocol when for building absolute urls behind a proxy.
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Allow iframe embedding for related model admin (django-admin-interface feature)
-X_FRAME_OPTIONS = 'SAMEORIGIN'
-
-# Required for Google Sign-In for Websites via Javascript
-# Deprecation Memo: https://developers.googleblog.com/2021/08/gsi-jsweb-deprecation.html
-SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # Starting point for all mapped urls.
 ROOT_URLCONF = '{{ project_name }}.urls'
@@ -214,7 +238,6 @@ elif DEBUG:
 DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
 PASSWORD_RESET_URL = env('PASSWORD_RESET_URL')
 
-
 # Login url when password reset by mail is completed
 LOGIN_URL = '/admin/login/'
 
@@ -224,7 +247,6 @@ GOOGLE_OAUTH_CLIENT_SECRET = env('GOOGLE_OAUTH_CLIENT_SECRET')
 
 # User media files (uploaded images, 3D models and more)
 # https://docs.djangoproject.com/en/3.1/topics/files/
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -250,7 +272,6 @@ if env('GS_BUCKET_NAME'):
 
 # Static media files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/{{ docs_version }}/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -311,7 +332,6 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'api.exceptions.exception_handler',
 }
 
-
 SPECTACULAR_SETTINGS = {
     'TITLE': '{{ project_name }} API',
     'DESCRIPTION': 'Have a nice day!',
@@ -336,31 +356,6 @@ IMAGEFIELD_FORMATS = {
         'preview': ['default', ('thumbnail', (300, 300))],
     }
 }
-
-# CORS Headers
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-]
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'accept-language',
-    'authorization',
-    'content-type',
-    'content-disposition',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
-
 
 # sentry.io error reporting
 if env('SENTRY_DSN'):
