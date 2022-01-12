@@ -28,7 +28,6 @@ env = environ.Env(
     SECRET_KEY=(str, None),
     DEBUG=(bool, False),
     MAINTENANCE_MODE=(bool, False),
-    SECURE_COOKIES=(bool, None),
     DATABASE_URL=(str, None),
     CACHE_URL=(str, 'locmemcache://'),
     GS_BUCKET_NAME=(str, None),
@@ -55,13 +54,9 @@ if 'test' in sys.argv:
 
 # Enable secure cookies in production by default
 # This requires valid SSL termination of some sort.
-# Usually provided by frontend load balancer (NGINX or Cloud Providr).
-SECURE_COOKIES = env('SECURE_COOKIES')
-if DEBUG is False and SECURE_COOKIES is None:
-    SECURE_COOKIES = True
-else:
-    SECURE_COOKIES = False
-
+# Usually provided by frontend load balancer (NGINX or Cloud Provider).
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/security/#ssl-https
+SECURE_COOKIES = DEBUG is False
 CSRF_COOKIE_SECURE = SECURE_COOKIES
 SESSION_COOKIE_SECURE = SECURE_COOKIES
 
