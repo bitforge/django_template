@@ -47,13 +47,21 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', default='{{ secret_key }}')
 
-# DEBUG set to true if env variable is set
+# Set DEBUG = True if env variable is set and it's not a test run
 DEBUG = env('DEBUG')
 if 'test' in sys.argv:
     DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = ['127.0.0.1']
+
+# Required to work nicely behind proxies
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'http://localhost:8080',
+    'https://*.bitforge.zuerich',
+    # Add your app domain here: 'https://*.domain.ch',
+]
 
 # Application definition
 INSTALLED_APPS = [
