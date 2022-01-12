@@ -3,7 +3,7 @@ FROM alpine:3.14
 # Install runtime requirements
 COPY requirements.txt /app/
 RUN apk update &&\
-    apk add --no-cache py3-pip py3-pillow py3-psycopg2 py3-cffi &&\
+    apk add --no-cache py3-pip py3-pillow py3-psycopg2 py3-cffi tzdata &&\
     apk add --no-cache --virtual build-deps gcc libffi-dev python3-dev musl-dev &&\
     pip3 install --no-cache-dir google-crc32c google-cloud-storage uvicorn &&\
     pip3 install --no-cache-dir -r /app/requirements.txt &&\
