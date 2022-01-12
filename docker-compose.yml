@@ -1,6 +1,8 @@
 version: '3'
 
 services:
+    mc:
+        image: memcached
     db:
         image: postgres
         volumes:
@@ -9,13 +11,11 @@ services:
             POSTGRES_DB: {{ project_name }}
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: dbpw
-    mc:
-        image: memcached
     dj:
         build: .
         depends_on:
-            - db
             - mc
+            - db
         volumes:
             - media:/app/media
         environment:
