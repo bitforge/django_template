@@ -28,6 +28,7 @@ env = environ.Env(
     SECRET_KEY=(str, None),
     DEBUG=(bool, False),
     MAINTENANCE_MODE=(bool, False),
+    SECURE_COOKIES=(bool, None),
     DATABASE_URL=(str, None),
     CACHE_URL=(str, 'locmemcache://'),
     GS_BUCKET_NAME=(str, None),
@@ -52,6 +53,19 @@ DEBUG = env('DEBUG')
 if 'test' in sys.argv:
     DEBUG = True
 
+# Enable secure cookies in production by default
+# This requires valid SSL termination of some sort.
+# Usually provided by frontend load balancer (NGINX or Cloud Providr).
+SECURE_COOKIES = env('SECURE_COOKIES')
+if DEBUG is False and SECURE_COOKIES is None:
+    SECURE_COOKIES = True
+else:
+    SECURE_COOKIES = False
+
+CSRF_COOKIE_SECURE = SECURE_COOKIES
+SESSION_COOKIE_SECURE = SECURE_COOKIES
+
+# REMINDER: Limiting allowed hosts increases security!
 ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = ['127.0.0.1']
 
@@ -108,23 +122,23 @@ except ImportError:
     pass
 
 
-# Set HTTP Strict Transport Policy to access only using https://
+# Set HTTP Strict Transport Policy Header when using https://
 SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-# Support https:// proctocol when behind a proxy and building absolute urls
+# Support https:// proctocol when for building absolute urls behind a proxy.
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Allow iframe embedding for related model admin
+# Allow iframe embedding for related model admin (django-admin-interface feature)
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Required for Google Sign-In for Websites via Javascript
 # Deprecation Memo: https://developers.googleblog.com/2021/08/gsi-jsweb-deprecation.html
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
-# Starting point for all mapped urls
+# Starting point for all mapped urls.
 ROOT_URLCONF = '{{ project_name }}.urls'
 
 # Disables all urls during maintenance work.
