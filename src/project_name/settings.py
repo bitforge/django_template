@@ -120,6 +120,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow iframe embedding for related model admin
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+# Required for Google Sign-In for Websites via Javascript
+# Deprecation Memo: https://developers.googleblog.com/2021/08/gsi-jsweb-deprecation.html
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
 # Starting point for all mapped urls
 ROOT_URLCONF = '{{ project_name }}.urls'
 
