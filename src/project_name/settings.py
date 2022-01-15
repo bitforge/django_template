@@ -14,6 +14,10 @@ import os
 import sys
 import environ
 from datetime import timedelta
+from urllib.parse import urlparse
+from django.core.exceptions import ImproperlyConfigured
+from corsheaders.defaults import default_methods as cors_default_methods
+from corsheaders.defaults import default_headers as cors_default_headers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,10 +25,12 @@ BASE_DIR = os.path.dirname(SRC_DIR)
 
 # ENV vars schema
 # For development, these values will be read from .env file
+# .env is usually a Symlink to the currently active environment (DEV, TEST, PROD)
 # In production, all variables are expected as 12factor env vars
-# TL/DR: It's good practice to mention all configurable values here
+# It's good practice to mention all configurable values here!
 env = environ.Env(
     # General settings
+    HOST_URL=(str, 'http://localhost:8000'),
     SECRET_KEY=(str, None),
     DEBUG=(bool, False),
     MAINTENANCE_MODE=(bool, False),
@@ -47,42 +53,50 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', default='{{ secret_key }}')
 
-# Set DEBUG = True if env variable is set and it's not a test run
+# DEBUG is only enalbed when explicity configured in environment!
 DEBUG = env('DEBUG')
 if 'test' in sys.argv:
     DEBUG = True
 
+# A list of IP addresses, that:
+# * Allow the debug() context processor to add some variables to the template context.
+# * Can use the admindocs bookmarklets even if not logged in as a staff user.
+# * Changes the way how logging messages are sent to Admins (With Full Stack Traces).
 INTERNAL_IPS = ['[::1]', '127.0.0.1']
+
+# HOST_URL must be a valid URL and either start with 'http://' or 'https://'
+# Valid URL structure: scheme://hostname<:port>/
+# https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse
+try:
+    HOST_URL: str = env('HOST_URL')
+    url = urlparse(HOST_URL)
+    if url.scheme not in ['http', 'https']:
+        raise ImproperlyConfigured('HOST_URL must start with "http://" or "https://".')
+    if url.path not in ['', '/'] or url.query or url.fragment:
+        raise ImproperlyConfigured('Please set HOST_URL to something simple like "https//domain.tld/"')
+except ValueError:
+    raise ImproperlyConfigured(f'HOST_URL must be a valid URL. Something like "https//domain.tld/"')
+
+# HOST_NAME is derived from HOST_URL to prevent Host Header attacks.
+try:
+    HOST_NAME = urlparse(HOST_URL).hostname
+except ValueError as error:
+    raise ImproperlyConfigured(f'Could not derive HOST_NAME from HOST_URL!\n{error}')
 
 # List of host/domain names to serve.
 # This is a security measure to prevent HTTP Host header attacks.
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#std:setting-ALLOWED_HOSTS
-ALLOWED_HOSTS = [
-    '[::1]',
-    '127.0.0.1',
-    '.localhost',
-    '.bitforge.ch',
-    '.bitforge.zuerich',
-    # Add app domain here: '.domain.ch',
-]
+ALLOWED_HOSTS = [HOST_NAME,]
 
 # Required to work nicely behind proxies
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#csrf-trusted-origins
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8000',
-    'http://localhost:8080',
-    'https://*.bitforge.ch',
-    'https://*.bitforge.zuerich',
-    # Add app domain here: 'https://*.domain.ch',
-]
+CSRF_TRUSTED_ORIGINS = [HOST_URL,]
 
-# Enable secure cookies in production by default
-# This requires valid SSL termination of some sort.
-# Usually provided by frontend load balancer (NGINX or Cloud Provider).
+# Enable secure cookies for CSRF and sessions in production by default.
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/security/#ssl-https
-SECURE_COOKIES = DEBUG is False
-CSRF_COOKIE_SECURE = SECURE_COOKIES
-SESSION_COOKIE_SECURE = SECURE_COOKIES
+USE_SECURE_COOKIES = HOST_URL.startswith('https://')
+CSRF_COOKIE_SECURE = USE_SECURE_COOKIES
+SESSION_COOKIE_SECURE = USE_SECURE_COOKIES
 
 # Set HTTP Strict Transport Policy Header when using https://
 SECURE_HSTS_SECONDS = 31536000
@@ -102,12 +116,9 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # CORS Headers
 # https://github.com/adamchainz/django-cors-headers
-from corsheaders.defaults import default_methods
-from corsheaders.defaults import default_headers
-
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_METHODS = list(default_methods)
-CORS_ALLOW_HEADERS = list(default_headers) + ['content-disposition']
+CORS_ALLOW_METHODS = list(cors_default_methods)
+CORS_ALLOW_HEADERS = list(cors_default_headers) + ['content-disposition']
 
 # Application definition
 INSTALLED_APPS = [
@@ -322,6 +333,7 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'TOS': 'https://bitforge.ch/agb/',
     'CONTACT': {'name': 'Team at Bitforge AG', 'email': 'info@bitforge.ch'},
+    'SERVERS': [{'url': HOST_URL}],
     'SERVE_INCLUDE_SCHEMA': False,
 }
 

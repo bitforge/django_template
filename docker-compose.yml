@@ -20,7 +20,7 @@ services:
             - media:/app/media
         environment:
             DEBUG: 0
-            MAINTENANCE_MODE: 0
+            HOST_URL: http://localhost:8000
             CACHE_URL: pymemcache://mc:11211
             DATABASE_URL: psql://postgres:dbpw@db:5432/{{ project_name }}
     ws:
