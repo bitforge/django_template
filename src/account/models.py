@@ -39,4 +39,5 @@ class User(AbstractUser):
             return self.first_name
         if self.last_name:
             return self.last_name
-        return ''
+        # Fallback to username from email
+        return self.email.split("@")[0]
