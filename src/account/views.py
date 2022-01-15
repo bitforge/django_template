@@ -20,6 +20,7 @@ class TokenObtainPairView(views.TokenObtainPairView):
     Takes a set of user credentials and returns an access and refresh JSON web
     token pair to prove the authentication of those credentials.
     """
+    serializer_class = serializers.TokenClaimsSerializer
 
     @extend_schema(
         request=serializers.TokenObtainRequestSerializer,
@@ -86,14 +87,13 @@ class GoogleAuthView(views.TokenViewBase):
         google_id = serializer.validated_data
         user = self.get_user(google_id)
 
-        # Authorize User for Admin access
+        # Authorize User for admin access
         auth_login(self.request, user)
-        token = RefreshToken.for_user(user)
 
-        return Response(
-            {'refresh': str(token), 'access': str(token.access_token)},
-            status=status.HTTP_200_OK,
-        )
+        # Build token with claims
+        token = serializers.TokenClaimsSerializer.get_token(user)
+        token_data = {'refresh': str(token), 'access': str(token.access_token)}
+        return Response(token_data, status=status.HTTP_200_OK)
 
     def get_user(self, google_id):
         """

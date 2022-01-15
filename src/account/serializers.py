@@ -7,12 +7,31 @@ from django.contrib.auth.tokens import default_token_generator
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 from google.oauth2 import id_token
 from google.auth.exceptions import GoogleAuthError
 from google.auth.transport import requests
 
 from account import models as accounts
 
+
+class TokenClaimsSerializer(TokenObtainPairSerializer):
+    """
+    Append custom claims to JWT Token
+    """
+
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Unique and verified email address
+        token['email'] = user.email
+
+        # Simple user display name
+        token['name'] = user.full_name
+
+        return token
 
 class TokenObtainRequestSerializer(serializers.Serializer):
     email = serializers.CharField()
