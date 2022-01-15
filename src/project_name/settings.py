@@ -327,6 +327,8 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'api.exceptions.exception_handler',
 }
 
+# OpenAPI 3.0 schema generation
+# https://drf-spectacular.readthedocs.io/en/latest/settings.html
 SPECTACULAR_SETTINGS = {
     'TITLE': '{{ project_name }} API',
     'DESCRIPTION': 'Have a nice day!',
@@ -337,12 +339,18 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
+# Simple JWT Token for API
+# https://django-rest-framework-simplejwt.readthedocs.io/en/latest/index.html
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
     'UPDATE_LAST_LOGIN': False,
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'sub',
+    'AUDIENCE': HOST_URL,
+    'ISSUER': HOST_URL,
 }
 
 # Preprocessed images
