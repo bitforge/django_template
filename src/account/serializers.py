@@ -29,7 +29,7 @@ class TokenClaimsSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
 
         # Simple user display name
-        token['name'] = user.full_name
+        token['name'] = user.display_name
 
         return token
 
