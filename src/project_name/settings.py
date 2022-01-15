@@ -139,6 +139,7 @@ INSTALLED_APPS = [
     'reversion',
     'rest_framework',
     'drf_spectacular',
+    'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
 ]
 
@@ -340,12 +341,12 @@ SPECTACULAR_SETTINGS = {
 }
 
 # Simple JWT Token for API
-# https://django-rest-framework-simplejwt.readthedocs.io/en/latest/index.html
+# https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': False,
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'sub',
