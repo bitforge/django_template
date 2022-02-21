@@ -29,23 +29,18 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
         project_name
 
 
-#### MacOS Pre-Flight:
+#### Pre-Flight:
+
+[Postgres.app](https://postgresapp.com) für MacOS installieren, Schritte 1-3 ausführen.
 
 Homebrew installieren: https://brew.sh/
 
     # Homebrew installieren, falls noch nicht vorhanden
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    # Python3 und Django installieren
+    # Python3, gettext und Django installieren
     brew install python@3.10
-    pip3 install django
-
-#### Linux Pre-Flight:
-
-Unter Debian / Ubuntu basierten Distros:
-
-    # LibPostgres und Django installieren
-    sudo apt-get install libpq-dev
+    brew install gettext
     pip3 install django
 
 #### Cold-Start-Checklist (Git Repo erstellen)
@@ -72,15 +67,18 @@ Main Branch im Repo auf `develop` setzen.
 > Dannach alles in diesem README bis hierhin entfernen & eigenes Intro schreiben.
 
 
+
+
 ### Local Dev Setup
 
 #### 1. Postgres Datenbank einrichten
 
-[Postgres.app](https://postgresapp.com) unter MacOS installieren.
+[Postgres.app](https://postgresapp.com) für MacOS installieren, Schritte 1-3 ausführen.
 
-Unter Linux Postgres gemäss Distro einrichten. Für Debian/Ubuntu basierte Systeme:
+Dannach sollte man sich in der Shell direkt auf die DB connecten können.
 
-    sudo apt install postgresql
+    psql
+
 
 #### 2. Shell Aliases einrichten
 
