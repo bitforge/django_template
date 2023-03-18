@@ -1,5 +1,6 @@
 # Install these requirements in venv for development
 wheel
+black
 flake8
 uvicorn
 pip-upgrader
