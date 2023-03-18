@@ -12,7 +12,7 @@ def thumbnail_title(image_field_name: str, title_field_name: str) -> str:
             image_field = getattr(instance, image_field_name, None)
             if not image_field.name:
                 return title
-            thumb_url = image_field.thumbnail['112x112'].url
+            thumb_url = image_field.thumbnail['120x120'].url
             img_html = f'<img class="list-thumb" src="{thumb_url}" alt="{title}" />'
             return format_html(f'{img_html} {title}')
         except Exception as e:
