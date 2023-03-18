@@ -1,0 +1,64 @@
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+
+class Group(models.Model):
+
+    name = models.CharField(
+        max_length=200
+    )
+
+    key = models.CharField(
+        'Key',
+        max_length=200
+    )
+
+    order = models.PositiveIntegerField(
+        _('Order'),
+        default=0
+    )
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = _('Group')
+        verbose_name_plural = _('Groups')
+
+    def __str__(self):
+        return self.name
+
+
+class Message(models.Model):
+
+    key = models.CharField(
+        'Key',
+        max_length=200,
+    )
+
+    group = models.ForeignKey(
+        to=Group,
+        verbose_name=_('Group'),
+        related_name='messages',
+        on_delete=models.CASCADE,
+    )
+
+    order = models.PositiveIntegerField(
+        _('Order'),
+        default=0
+    )
+
+    de = models.TextField(
+        _('German'),
+    )
+
+    en = models.TextField(
+        _('English'),
+        blank=True,
+    )
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = _('Text')
+        verbose_name_plural = _('Texte')
+
+    def __str__(self):
+        return self.key

@@ -130,12 +130,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'admin.apps.AdminApp',
-    'account',
     'api',
+    'account',
+    'translations',
     '{{ project_name }}',
     # Libraries
     'reversion',
     'corsheaders',
+    'admin_ordering',
     'maintenance_mode',
     'versatileimagefield',
     'rest_framework',
@@ -212,6 +214,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Use postgres db when configured in env
 # Google Cloud SQL is injected via UNIX Socket path:
