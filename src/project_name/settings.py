@@ -359,7 +359,7 @@ SIMPLE_JWT = {
 VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
     'thumbnails': [
         ('url', 'url'),
-        ('icon', 'thumbnail__112x112'),
+        ('thumb', 'thumbnail__112x112'),
     ],
 }
 

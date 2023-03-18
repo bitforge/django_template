@@ -1,23 +1,23 @@
 from django.utils.html import format_html, mark_safe
-from django.utils.translation import gettext_lazy as _
 
 
-def thumbnail_field(image_name: str, field_name: str) -> str:
+def thumbnail_title(image_field_name: str, title_field_name: str) -> str:
     """
-    Combines a field with a thumbnail image
+    Combines a title field with a thumbnail image
     """
 
     def thumbnail(instance):
         try:
-            display_name = str(getattr(instance, field_name, None))
-            image_field = getattr(instance, image_name, None)
-            if not image_field.name or not image_field.thumb:
-                return display_name
-            img_html = f'<img class="list-thumb" src="{image_field.thumb}" alt="{display_name}" />'
-            return format_html(f'{img_html} {display_name}')
+            title = str(getattr(instance, title_field_name, None))
+            image_field = getattr(instance, image_field_name, None)
+            if not image_field.name:
+                return title
+            thumb_url = image_field.thumbnail['112x112'].url
+            img_html = f'<img class="list-thumb" src="{thumb_url}" alt="{title}" />'
+            return format_html(f'{img_html} {title}')
         except Exception as e:
             return mark_safe('<p>%s</p>' % e)
 
-    thumbnail.short_description = field_name.capitalize()
-    thumbnail.admin_order_field = field_name
+    thumbnail.short_description = title_field_name.capitalize()
+    thumbnail.admin_order_field = image_field_name
     return thumbnail
