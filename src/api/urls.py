@@ -21,6 +21,11 @@ urlpatterns = [
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('doc/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path(
+        'templates/<slug:id>/',
+        views.GetTemplateView.as_view(),
+        name='get_template',
+    ),
 ]
 
 urlpatterns += router.urls

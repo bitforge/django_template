@@ -46,6 +46,14 @@ class EntrySerializer(serializers.ModelSerializer):
         ]
 
 
+class TemplateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Template
+        lookup_field = 'slug'
+        exclude = ['id', 'slug']
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = accounts.User
