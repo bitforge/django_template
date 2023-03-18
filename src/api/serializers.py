@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 from account import models as accounts
 from {{ project_name }} import models
@@ -29,6 +30,8 @@ class HealthStatusSerializer(serializers.Serializer):
 
 
 class EntrySerializer(serializers.ModelSerializer):
+    image = VersatileImageFieldSerializer(sizes='thumbnails')
+
     class Meta:
         model = models.Entry
         fields = [
@@ -44,7 +47,6 @@ class EntrySerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = accounts.User
         fields = [

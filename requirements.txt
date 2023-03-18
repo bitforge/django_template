@@ -2,15 +2,15 @@ Django==4.1.7
 django-admin-interface==0.24.2
 django-cors-headers==3.14.0
 django-environ==0.10.0
-django-imagefield==0.16.1
 django-maintenance-mode==0.18.0
 django-reversion==5.0.4
 django-storages==1.13.2
+django-versatileimagefield==3.0
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 drf-spectacular==0.26.0
 google-auth==2.16.2
-psycopg2==2.9.5 # Must match package py3-psycopg2 in alpine:3.14
+psycopg2==2.9.5 # Must match package py3-psycopg2 in alpine:3.17
 PyJWT==2.6.0
 PyYAML==6.0
 pymemcache==4.0.0

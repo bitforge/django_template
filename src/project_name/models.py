@@ -3,10 +3,10 @@ import uuid
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.db.models.signals import post_save
 
-from imagefield.fields import ImageField
-
-from {{ project_name }}.model_utils import entry_image_upload_path
+from versatileimagefield.fields import VersatileImageField
+from versatileimagefield.image_warmer import VersatileImageFieldWarmer
 
 # Django models doc:
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/db/models/
@@ -24,8 +24,7 @@ class Entry(models.Model):
 
     slug = models.SlugField(_('Slug'), max_length=100)
 
-    image = ImageField(_('Image'), upload_to=entry_image_upload_path, blank=True, null=True,
-        auto_add_fields=True, ppoi_field=False,)
+    image = VersatileImageField(_('Image'), upload_to='entries/', blank=True, null=True)
 
     website = models.URLField(_('Website'), blank=True, null=True)
 
@@ -49,3 +48,22 @@ class Entry(models.Model):
     @property
     def image_preview(self):
         return self.image.preview if self.image else None
+
+
+# Signals
+# https://docs.djangoproject.com/en/4.0/topics/signals/
+
+
+def preprocess_images(sender, instance, **kwargs):
+    """
+    Preprocesses thumbnails when mobyz object is saved
+    """
+    if instance.image:
+        VersatileImageFieldWarmer(
+            instance_or_queryset=instance,
+            rendition_key_set='thumbnails',
+            image_attr='image',
+        ).warm()
+
+
+post_save.connect(preprocess_images, sender=Entry)

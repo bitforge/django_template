@@ -1,21 +1,20 @@
-{{ project_name }}
-==================
+# {{ project_name }}
 
 Bitforge Template für neue Django Projekte.
 
 Bringt einige opinionated presets und features mit:
 
-- [Container build](https://docs.docker.com/engine/reference/builder/) script via `Dockerfile`
-- [12factor](https://12factor.net) Architektur
-- [Google Cloud Run](https://cloud.google.com/run) ready mit [Storage Bucket support.](https://django-storages.readthedocs.io/en/latest/backends/gcloud.html)
-- [Google SSO Login](https://developers.google.com/identity/sign-in/web) ***Deprecated*** für Admin & Api
-- [Sentry.io](https://sentry.io/) Error Reporting
-- Email Addressen als *Account_ID*, keine Usernames
-- [django-admin-interface](https://github.com/fabiocaccamo/django-admin-interface) als Admin Styling
-- [Django REST Framework](https://www.django-rest-framework.org/) für API
-- [RFC 7807](https://blog.codecentric.de/2019/09/rest-standardisierte-fehlermeldungen-mittels-rfc-7807-problem-details/) Error Messages
-- [JSON Web Tokens (JWT)](https://jwt.io/) für API Login
-- [django-imagefield](https://github.com/matthiask/django-imagefield) für Image Pre-Processing
+-   [Container build](https://docs.docker.com/engine/reference/builder/) script via `Dockerfile`
+-   [12factor](https://12factor.net) Architektur
+-   [Google Cloud Run](https://cloud.google.com/run) ready mit [Storage Bucket support.](https://django-storages.readthedocs.io/en/latest/backends/gcloud.html)
+-   [Google SSO Login](https://developers.google.com/identity/sign-in/web) **_Deprecated_** für Admin & Api
+-   [Sentry.io](https://sentry.io/) Error Reporting
+-   Email Addressen als _Account_ID_, keine Usernames
+-   [django-admin-interface](https://github.com/fabiocaccamo/django-admin-interface) als Admin Styling
+-   [Django REST Framework](https://www.django-rest-framework.org/) für API
+-   [RFC 7807](https://blog.codecentric.de/2019/09/rest-standardisierte-fehlermeldungen-mittels-rfc-7807-problem-details/) Error Messages
+-   [JSON Web Tokens (JWT)](https://jwt.io/) für API Login
+-   [django-versatileimagefield](https://django-versatileimagefield.readthedocs.io/en/latest/) für Image Pre-Processing
 
 ## Template Take-Off
 
@@ -27,7 +26,6 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
         --template django_template \
         --extension py,md,env,yml \
         project_name
-
 
 #### Pre-Flight:
 
@@ -57,7 +55,6 @@ Die Triebwerke starten und schauen ob das Ding fliegt:
     echo "Clear!"
     ./manage.py runserver
 
-
 #### Debriefing & Flight-Log
 
 Repo auf GitHub erstellen und `main` sowie `develop` branch pushen.
@@ -65,9 +62,6 @@ Repo auf GitHub erstellen und `main` sowie `develop` branch pushen.
 Main Branch im Repo auf `develop` setzen.
 
 > Dannach alles in diesem README bis hierhin entfernen & eigenes Intro schreiben.
-
-
-
 
 ### Local Dev Setup
 
@@ -78,7 +72,6 @@ Main Branch im Repo auf `develop` setzen.
 Dannach sollte man sich in der Shell direkt auf die DB connecten können.
 
     psql
-
 
 #### 2. Shell Aliases einrichten
 
@@ -98,7 +91,6 @@ Je nach Shell sollten diese in `~/.bashrc` oder `~/.zshrc` gespeichert werden.
     alias djmsgc='python manage.py compilemessages -i .venv'
 
     alias dc='docker-compose'
-
 
 #### 3. Initial Env Setup
 
@@ -122,14 +114,12 @@ DB einrichten und Admin User erstellen:
     dj migrate
     dj createsuperuser
 
-
 ### Konfiguration
 
 Alle variablen Optionen werden gemäss [12factor](https://12factor.net/config) in der Environment definiert.
 Im Ordner `envs` können lokal verschiedene Umgebungen erstellt werden werden.
 Es gibt jeweils eine aktive Umgebung, die mit dem `.env` Symlink gesetzt wird.
 Nach dem auschecken des Repo sollte die lokale PostgreSQL env aktiviert werden.
-
 
 ### Docker Compose verwenden
 
@@ -142,12 +132,10 @@ Dannach kann die Umgebung normal gestartet werden
 
     dc up
 
-
 ### Übersetzungen aktualisieren und kompilieren
 
     djmsg
     djmsgc
-
 
 ### Dev server starten
 
@@ -155,4 +143,3 @@ Development Server starten
 
     aenv
     djr
-
