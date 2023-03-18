@@ -1,10 +1,9 @@
-from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
+from django.db import models
 
 from reversion.admin import VersionAdmin
 
-from {{ project_name }} import models
 from admin.utils import thumbnail_title
+from admin.widgets import AutosizeTextArea, AdminImageWidget
 
 # Django Admin docs:
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/contrib/admin/
@@ -14,3 +13,7 @@ class EntryAdmin(VersionAdmin):
     search_fields = ('title', 'description')
     list_display = (thumbnail_title('image', 'title'), 'modified')
     prepopulated_fields = {'slug': ('title',)}
+    formfield_overrides = {
+        models.ImageField: {'widget': AdminImageWidget},
+        models.TextField: {'widget': AutosizeTextArea},
+    }

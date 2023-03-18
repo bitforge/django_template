@@ -5,3 +5,16 @@
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/admin_theme.css' %}">
 {% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    {# Do not load javascript enhancements on login page #}
+    {% if request.user.is_authenticated %}
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay"></script>
+        <script src="https://cdn.jsdelivr.net/npm/autosize"></script>
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <script src="{% static 'admin/js/forms.js' %}"></script>
+    {% endif %}
+{% endblock %}
