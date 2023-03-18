@@ -3,20 +3,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Group(models.Model):
+    name = models.CharField(max_length=200)
 
-    name = models.CharField(
-        max_length=200
-    )
+    key = models.CharField('Key', max_length=200)
 
-    key = models.CharField(
-        'Key',
-        max_length=200
-    )
-
-    order = models.PositiveIntegerField(
-        _('Order'),
-        default=0
-    )
+    order = models.PositiveIntegerField(_('Order'), default=0)
 
     class Meta:
         ordering = ['order']
@@ -28,7 +19,6 @@ class Group(models.Model):
 
 
 class Text(models.Model):
-
     key = models.CharField('Key', max_length=200)
 
     group = models.ForeignKey(
