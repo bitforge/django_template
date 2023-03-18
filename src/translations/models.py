@@ -24,7 +24,7 @@ class Text(models.Model):
     group = models.ForeignKey(
         to=Group,
         verbose_name=_('Group'),
-        related_name='messages',
+        related_name='texts',
         on_delete=models.CASCADE,
     )
 
@@ -40,3 +40,7 @@ class Text(models.Model):
 
     def __str__(self):
         return self.key
+
+    @property
+    def full_key(self, text):
+        return "%s.%s" % (text.group.key, text.key)

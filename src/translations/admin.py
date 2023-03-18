@@ -44,8 +44,3 @@ class TextAdmin(VersionAdmin):
     formfield_overrides = {
         TextField: {'widget': widgets.AutosizeTextArea},
     }
-
-    def full_key(self, obj):
-        return '%s.%s' % (obj.group.key, obj.key)
-
-    full_key.short_description = 'Key'
