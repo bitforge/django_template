@@ -13,11 +13,12 @@ class MessageInlineAdmin(OrderableAdmin, admin.TabularInline):
     ordering_field = 'order'
     ordering_field_hide_input = True
     fields = ['key', 'de', 'en', 'order']
-    model = models.Message
+    model = models.Text
     extra = 0
     formfield_overrides = {
         TextField: {'widget': widgets.AutosizeTextArea},
     }
+
 
 @admin.register(models.Group)
 class GroupAdmin(OrderableAdmin, VersionAdmin):
@@ -30,9 +31,10 @@ class GroupAdmin(OrderableAdmin, VersionAdmin):
     inlines = [MessageInlineAdmin]
 
 
-@admin.register(models.Message)
-class MessageAdmin(VersionAdmin):
+@admin.register(models.Text)
+class TextAdmin(VersionAdmin):
     ordering = ('group__order', 'order')
+    list_filter = ['group']
     list_display = ['full_key', 'de', 'en']
     list_display_links = None
     list_editable = ['de', 'en']
@@ -44,5 +46,6 @@ class MessageAdmin(VersionAdmin):
     }
 
     def full_key(self, obj):
-        return "%s.%s" % (obj.group.key, obj.key)
+        return '%s.%s' % (obj.group.key, obj.key)
+
     full_key.short_description = 'Key'

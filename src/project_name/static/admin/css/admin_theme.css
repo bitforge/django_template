@@ -75,3 +75,14 @@
     font-size: 1em;
     margin: 16px 0;
 }
+
+/* Translations */
+.app-translations.model-text #result_list tbody tr td {
+    vertical-align: middle;
+    line-height: normal;
+    height: auto;
+}
+
+.app-translations.model-text #result_list tbody tr td textarea {
+    width: 96%;
+}

@@ -27,12 +27,9 @@ class Group(models.Model):
         return self.name
 
 
-class Message(models.Model):
+class Text(models.Model):
 
-    key = models.CharField(
-        'Key',
-        max_length=200,
-    )
+    key = models.CharField('Key', max_length=200)
 
     group = models.ForeignKey(
         to=Group,
@@ -41,24 +38,15 @@ class Message(models.Model):
         on_delete=models.CASCADE,
     )
 
-    order = models.PositiveIntegerField(
-        _('Order'),
-        default=0
-    )
+    order = models.PositiveIntegerField(_('Order'), default=0)
 
-    de = models.TextField(
-        _('German'),
-    )
-
-    en = models.TextField(
-        _('English'),
-        blank=True,
-    )
+    de = models.TextField(_('German'))
+    en = models.TextField(_('English'), blank=True)
 
     class Meta:
         ordering = ['order']
         verbose_name = _('Text')
-        verbose_name_plural = _('Texte')
+        verbose_name_plural = _('Texts')
 
     def __str__(self):
         return self.key
