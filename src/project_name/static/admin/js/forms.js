@@ -2,11 +2,13 @@ $(function() {
     // Init autosize textfields
     autosize($('textarea.autosize'));
 
-    // Init simple mde
+    // Init simple markdown editor
+    // https://simplemde.com/
     $('.markdown').each(function () {
         new SimpleMDE({
             element: this,
             toolbar: [
+                'heading-1', 'heading-2', 'heading-3', '|',
                 'bold', 'italic', '|',
                 'unordered-list', 'ordered-list', '|',
                 'preview'

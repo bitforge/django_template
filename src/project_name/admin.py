@@ -5,3 +5,4 @@ from admin import admins;
 
 # Register {{ project_name }} admins
 site.register(models.Entry, admins.EntryAdmin)
+site.register(models.Template, admins.TemplateAdmin)

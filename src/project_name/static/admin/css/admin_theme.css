@@ -31,3 +31,47 @@
 .form-row.field-title input {
     font-size: 18px;
 }
+
+/* Markdown editor */
+.form-row .editor-toolbar,
+.form-row .CodeMirror,
+.form-row .editor-statusbar {
+    margin-left: 170px;
+}
+
+.form-row .editor-preview h1,
+.form-row .editor-preview h2,
+.form-row .editor-preview h3,
+.form-row .editor-preview p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    background: none;
+    color: black;
+}
+
+.form-row .editor-preview h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 16px 0 32px 0;
+}
+
+.form-row .editor-preview h2 {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.form-row .editor-preview h3 {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 16px 0;
+}
+
+.form-row .editor-preview p {
+    font-size: 1em;
+    margin: 16px 0;
+}

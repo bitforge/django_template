@@ -49,6 +49,29 @@ class Entry(models.Model):
         return self.image.preview if self.image else None
 
 
+class Template(models.Model):
+    """
+    Templates for emails sent by Mobyz PWA users.
+    """
+
+    id = models.AutoField(primary_key=True)
+
+    title = models.CharField(_('Title'), max_length=100)
+
+    slug = models.SlugField(_('Slug (ID)'), unique=True)
+
+    head = models.CharField(_('Headline'), max_length=100, blank=True)
+
+    body = models.TextField(_('Body'), blank=True)
+
+    class Meta:
+        verbose_name = _('Template')
+        verbose_name_plural = _('Templates')
+
+    def __str__(self):
+        return self.title
+
+
 # Signals
 # https://docs.djangoproject.com/en/4.0/topics/signals/
 
