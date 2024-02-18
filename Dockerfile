@@ -1,4 +1,4 @@
-FROM alpine:3.17
+FROM alpine:3.19
 
 # Install runtime requirements
 COPY requirements.txt /app/
