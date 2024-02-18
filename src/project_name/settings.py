@@ -302,6 +302,8 @@ LANGUAGES = [
     ('it', 'Italian')
 ]
 
+TRANSLATION_LANGUAGES = ['en', 'de']
+
 LANGUAGE_COOKIE_NAME = 'language'
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'src/{{ project_name }}/locale'),)

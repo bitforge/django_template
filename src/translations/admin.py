@@ -35,7 +35,7 @@ class GroupAdmin(OrderableAdmin, VersionAdmin):
 class TextAdmin(VersionAdmin):
     ordering = ('group__order', 'order')
     list_filter = ['group']
-    list_display = ['full_key', 'de', 'en']
+    list_display = ['group', 'key', 'de', 'en']
     list_display_links = None
     list_editable = ['de', 'en']
     list_filter = ['group']

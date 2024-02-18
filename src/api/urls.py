@@ -17,6 +17,7 @@ router.register('entries', viewsets.EntryViewSet, basename='entries')
 urlpatterns = [
     path('', RedirectView.as_view(url='/api/doc/')),
     path('auth/', include('account.urls')),
+    path('tranlsations/', include('translations.urls')),
     path('health/', views.HealthCheckView.as_view(), name='health_check'),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('doc/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),

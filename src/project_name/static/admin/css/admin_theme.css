@@ -77,12 +77,22 @@
 }
 
 /* Translations */
-.app-translations.model-text #result_list tbody tr td {
+.app-translations.model-text #result_list tr td,
+.app-translations.model-group #texts-group tr td {
     vertical-align: middle;
     line-height: normal;
     height: auto;
 }
 
-.app-translations.model-text #result_list tbody tr td textarea {
+.app-translations.model-text #result_list tr td textarea,
+.app-translations.model-group #texts-group tr td textarea {
     width: 96%;
+}
+
+.app-translations.model-group #texts-group .original {
+    display: none;
+}
+
+.app-translations.model-group #texts-group tr.has_original td {
+    padding-top: 8px;
 }

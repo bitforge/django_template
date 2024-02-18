@@ -27,7 +27,7 @@ Aus diesem Repo kann direkt ein neues Django Projekt erstellt werden:
         --extension py,md,env,yml \
         project_name
 
-#### Pre-Flight:
+### Pre-Flight Checklist
 
 [Postgres.app](https://postgresapp.com) für MacOS installieren, Schritte 1-3 ausführen.
 
@@ -41,25 +41,16 @@ Homebrew installieren: https://brew.sh/
     brew install gettext
     pip3 install django
 
-#### Cold-Start-Checklist (Git Repo erstellen)
+### Aircraft Registration & Maiden-Flight
+
+Das Initialiserungs Skript erstellt alles notwendige inkl. dem ersten Git Commit
 
     cd project_name
     ./initalize.sh
-    echo "Checklist completed!"
 
-### Test-Flight
+Dann ein Repo auf GitHub erstellen und `main` sowie `develop` branch pushen.
 
-Die Triebwerke starten und schauen ob das Ding fliegt:
-
-    source .venv/bin/activate
-    echo "Clear!"
-    ./manage.py runserver
-
-#### Debriefing & Flight-Log
-
-Repo auf GitHub erstellen und `main` sowie `develop` branch pushen.
-
-Main Branch im Repo auf `develop` setzen.
+Den Main Branch im Repo auf `develop` setzen.
 
 > Dannach alles in diesem README bis hierhin entfernen & eigenes Intro schreiben.
 
