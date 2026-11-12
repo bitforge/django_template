@@ -1,12 +1,11 @@
 from django.contrib.auth import login as auth_login
 from django.utils.translation import gettext_lazy as _
 
-from rest_framework import serializers, generics, status
+from rest_framework import generics, status
 from rest_framework.exceptions import ValidationError, AuthenticationFailed
 from rest_framework.response import Response
 
 from rest_framework_simplejwt import views
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from drf_spectacular.utils import extend_schema
 

@@ -34,6 +34,7 @@ urlpatterns = [
 urlpatterns += [
     path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
 ] + media_urls
 
 # Only enable debug toolbar when installed

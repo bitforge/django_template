@@ -36,9 +36,10 @@ Homebrew installieren: https://brew.sh/
     # Homebrew installieren, falls noch nicht vorhanden
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    # Python3, gettext und Django installieren
-    brew install python@3.10
+    # Python3, gettext, libmagic und Django installieren
+    brew install python@3.14
     brew install gettext
+    brew install libmagic
     pip3 install django
 
 ### Aircraft Registration & Maiden-Flight
@@ -53,6 +54,16 @@ Dann ein Repo auf GitHub erstellen und `main` sowie `develop` branch pushen.
 Den Main Branch im Repo auf `develop` setzen.
 
 > Dannach alles in diesem README bis hierhin entfernen & eigenes Intro schreiben.
+
+### Template testen
+
+Nach Änderungen am Template (z.B. Dependency Upgrades) prüfen, ob daraus noch ein lauffähiges Projekt entsteht:
+
+    scripts/test_template.sh
+
+Das Skript erstellt in einem temporären Ordner ein frisches venv und ein neues Projekt aus dem Template,
+führt dann Checks, Migrationen, Übersetzungen, `collectstatic` sowie die Tests des generierten Projekts aus.
+Mit `KEEP=1` bleibt das generierte Projekt zur Inspektion erhalten.
 
 ### Local Dev Setup
 
@@ -127,6 +138,10 @@ Dannach kann die Umgebung normal gestartet werden
 
     djmsg
     djmsgc
+
+### Tests ausführen
+
+    dj test src
 
 ### Dev server starten
 

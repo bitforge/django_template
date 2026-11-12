@@ -13,8 +13,8 @@ pip install -r requirements.txt
 ./manage.py makemessages -a
 ./manage.py compilemessages -i .venv
 
-# Remove this file
-rm -f $0
+# Remove this file and the template test
+rm -f $0 scripts/test_template.sh
 
 # Initialize git repo
 git init

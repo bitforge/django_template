@@ -4,6 +4,7 @@ from versatileimagefield.serializers import VersatileImageFieldSerializer
 from account import models as accounts
 from {{ project_name }} import models
 
+
 class ErrorDescriptionSerializer(serializers.Serializer):
     status = serializers.IntegerField(min_value=300, max_value=500)
     code = serializers.CharField(max_length=50)
@@ -22,6 +23,7 @@ class ErrorDescriptionSerializer(serializers.Serializer):
                 'title': getattr(instance, 'title', instance.default_detail),
                 'description': getattr(instance, 'description', 'Not Provided.')
             }
+
 
 class HealthStatusSerializer(serializers.Serializer):
     db_up = serializers.BooleanField()

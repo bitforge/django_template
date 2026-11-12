@@ -2,11 +2,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from api import serializers
-
 from account import models as accounts
 from api import serializers
 from {{ project_name }} import models
+
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = accounts.User.objects.all()
