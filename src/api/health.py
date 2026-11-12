@@ -1,14 +1,16 @@
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.cache import cache
+from django.db import DatabaseError
 
 from account import models as accounts
 
 
 def check_db():
     try:
-        return accounts.User.objects.exists()
-    except accounts.User.DoesNotExist:
+        accounts.User.objects.exists()
+        return True
+    except DatabaseError:
         return False
 
 

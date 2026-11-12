@@ -33,6 +33,7 @@ class TokenClaimsSerializer(TokenObtainPairSerializer):
 
         return token
 
+
 class TokenObtainRequestSerializer(serializers.Serializer):
     email = serializers.CharField()
     password = serializers.CharField()

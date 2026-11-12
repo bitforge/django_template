@@ -245,14 +245,29 @@ LOGIN_URL = '/admin/login/'
 GOOGLE_OAUTH_CLIENT_ID = env('GOOGLE_OAUTH_CLIENT_ID')
 GOOGLE_OAUTH_CLIENT_SECRET = env('GOOGLE_OAUTH_CLIENT_SECRET')
 
+# File storage backends for user media and static files
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#storages
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
+
+# Tests don't require collected static files
+if 'test' in sys.argv:
+    STORAGES['staticfiles']['BACKEND'] = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 # User media files (uploaded images, 3D models and more)
-# https://docs.djangoproject.com/en/3.1/topics/files/
+# https://docs.djangoproject.com/en/{{ docs_version }}/topics/files/
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Use Goolge Cloud Storage when configured
 if env('GS_BUCKET_NAME'):
-    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    STORAGES['default']['BACKEND'] = 'storages.backends.gcloud.GoogleCloudStorage'
     GS_BUCKET_NAME = env('GS_BUCKET_NAME')
     GS_PROJECT_ID = env('GS_PROJECT_ID')
 
@@ -274,9 +289,6 @@ if env('GS_BUCKET_NAME'):
 # https://docs.djangoproject.com/en/{{ docs_version }}/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-if 'test' not in sys.argv:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Disable whitenoise startup delay
 WHITENOISE_AUTOREFRESH = True
@@ -309,7 +321,6 @@ LANGUAGE_COOKIE_NAME = 'language'
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'src/{{ project_name }}/locale'),)
 
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 # Default time zone (UTC +01:00, UTC DST +02:00)
